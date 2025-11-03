@@ -4,10 +4,12 @@ import v1Router from "./routes/v1/index.routes";
 import { appErrorHandler } from "./middlewares/error.middleware";
 import logger from "./config/logger.config";
 import { attachCorrelationIdMiddleware } from "./middlewares/correlation.middleware";
+import cors from "cors";
+
 const app = express();
 
 app.use(express.json());
-
+app.use(cors());
 app.use(attachCorrelationIdMiddleware);
 app.use("/api/v1", v1Router);
 

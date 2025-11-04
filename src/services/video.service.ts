@@ -1,5 +1,6 @@
 import fs from "fs";
 import ffmpeg from "fluent-ffmpeg";
+import logger from "../config/logger.config";
 
 interface Resolution {
   width: number;
@@ -20,6 +21,7 @@ export const processVideoForHLS = (
   outputPath: string,
   callback: (error: Error | null, masterPlaylist?: string) => void
 ) => {
+  logger.info("Creating output directory");
   fs.mkdirSync(outputPath, { recursive: true });
 
   const masterPlaylist = `${outputPath}/master.m3u8`;
@@ -27,7 +29,7 @@ export const processVideoForHLS = (
   let countProcessing = 0;
 
   resolutions.forEach((resolution) => {
-    console.log(`Processing ${resolution.height}p`);
+    logger.info(`Processing ${resolution.height}p`);
     const variantOutput = `${outputPath}/${resolution.height}p`;
     const variantPlaylist = `${variantOutput}/playlist.m3u8`;
     fs.mkdirSync(variantOutput, { recursive: true });
@@ -56,7 +58,7 @@ export const processVideoForHLS = (
         }
       })
       .on("error", (err) => {
-        console.error("Error processing video:", err);
+        logger.error("Error processing video:", err);
         callback(err);
       })
       .run();

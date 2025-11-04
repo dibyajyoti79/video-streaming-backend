@@ -27,6 +27,7 @@ export const processVideoForHLS = (
   let countProcessing = 0;
 
   resolutions.forEach((resolution) => {
+    console.log(`Processing ${resolution.height}p`);
     const variantOutput = `${outputPath}/${resolution.height}p`;
     const variantPlaylist = `${variantOutput}/playlist.m3u8`;
     fs.mkdirSync(variantOutput, { recursive: true });
@@ -43,7 +44,7 @@ export const processVideoForHLS = (
       .output(variantPlaylist)
       .on("end", () => {
         masterContent.push(
-          `#EXT-X-STREAM-INF:BANDWIDTH=${resolution.bitrate},RESOLUTION=${resolution.width}x${resolution.height}\n${resolution.height}p/playlist.m3u8"`
+          `#EXT-X-STREAM-INF:BANDWIDTH=${resolution.bitrate},RESOLUTION=${resolution.width}x${resolution.height}\n${resolution.height}p/playlist.m3u8`
         );
         countProcessing++;
         if (countProcessing === resolutions.length) {

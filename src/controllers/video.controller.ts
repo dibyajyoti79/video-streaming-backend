@@ -13,7 +13,7 @@ export const uploadVideoController = async (req: Request, res: Response) => {
 
   const videoPath = file.path;
   const outputPath = `output/${Date.now()}`;
-  processVideoForHLS(videoPath, outputPath, (err, masterPlaylist) => {
+  processVideoForHLS(videoPath, outputPath, (err) => {
     if (err) {
       throw new BadRequestError("Error processing video", err);
     }
@@ -24,8 +24,10 @@ export const uploadVideoController = async (req: Request, res: Response) => {
       }
       console.log("Video deleted successfully");
     });
-    res
-      .status(StatusCodes.OK)
-      .json(new ApiResponse("Video processed successfully", masterPlaylist));
   });
+  res
+    .status(StatusCodes.OK)
+    .json(
+      new ApiResponse("Video Uploaded Successfully, Processing in background")
+    );
 };

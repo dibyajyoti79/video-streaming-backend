@@ -1,6 +1,6 @@
 # 🎬 Video Streaming Backend
 
-A robust, production-ready backend service for video upload and HLS (HTTP Live Streaming) processing. This service automatically transcodes uploaded videos into multiple resolutions and generates adaptive streaming playlists for optimal playback across different devices and network conditions.
+A backend service for video upload and HLS (HTTP Live Streaming) processing. This service automatically transcodes uploaded videos into multiple resolutions and generates adaptive streaming playlists for optimal playback across different devices and network conditions.
 
 ## ✨ Features
 
